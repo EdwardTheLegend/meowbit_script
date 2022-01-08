@@ -5,9 +5,6 @@ class FlagsScript(Script):
     def __init__(self, *args) -> None:
         super().__init__(*args, name="Flags")
 
-        self.flags_list = [self.france, self.japan, self.italy]
-        self.flag_index = 0
-
     def japan(self):
         self.screen.fill((255, 255, 255))
         self.screen.circle(80, 64, 40, (255, 0, 0), (0, 255, 0))
@@ -42,6 +39,8 @@ class FlagsScript(Script):
 
     # main function
     def main(self):
+        self.flags_list = [self.france, self.japan, self.italy]
+        self.flag_index = 0
         self.flags_list[self.flag_index]()
         while True:
             if self.sensor.btnValue("right") == 1:
