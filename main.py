@@ -3,6 +3,7 @@ from pyb import LED, SCREEN, wfi
 
 import flags
 import empty
+import one_pixel
 
 from screen import Screen
 from sensor import Sensor
@@ -11,7 +12,7 @@ from micropython import const
 # initialize all the components
 screen = Screen(
     tft=SCREEN(),
-    fb=FrameBuffer(bytearray(160 * 128 * 2), 160, 128, RGB565),
+    fb=FrameBuffer(bytearray(const(160 * 128 * 2)), const(160), const(128), RGB565),
 )
 sensor = Sensor()
 led1 = LED(1)
@@ -25,8 +26,7 @@ give_to_scripts = [screen, sensor, led1, led2]
 scripts = [
     flags.FlagsScript(*give_to_scripts),
     empty.EmptyScript(*give_to_scripts),
-    flags.FlagsScript(*give_to_scripts),
-    empty.EmptyScript(*give_to_scripts),
+    one_pixel.OnePixel(*give_to_scripts),
 ]
 
 # menu system
