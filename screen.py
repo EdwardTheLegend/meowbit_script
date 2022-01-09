@@ -1,5 +1,6 @@
-import os
+from micropython import opt_level
 
+opt_level(3)
 
 class Screen:
     def __init__(self, tft, fb):

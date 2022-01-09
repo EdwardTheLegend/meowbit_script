@@ -1,13 +1,15 @@
 from framebuf import RGB565, FrameBuffer
 from pyb import LED, SCREEN, wfi
 
-import flags
-import empty
-import one_pixel
+from flags import FlagsScript
+from empty import EmptyScript
+from one_pixel import OnePixelScript
 
 from screen import Screen
 from sensor import Sensor
-from micropython import const
+from micropython import const, opt_level
+
+opt_level(3)
 
 # initialize all the components
 screen = Screen(
@@ -21,12 +23,10 @@ led2 = LED(2)
 # clear the screen
 screen.clear()
 
-give_to_scripts = [screen, sensor, led1, led2]
-
 scripts = [
-    flags.FlagsScript(*give_to_scripts),
-    empty.EmptyScript(*give_to_scripts),
-    one_pixel.OnePixel(*give_to_scripts),
+    FlagsScript,
+    EmptyScript,
+    OnePixelScript,
 ]
 
 # menu system
@@ -42,7 +42,9 @@ while True:
         cursor_index = (cursor_index + 1) % len(scripts)
         updated = True
     elif sensor.btnValue("a"):
-        scripts[cursor_index].main()
+        current_script = scripts[cursor_index](screen, sensor, led1, led2)
+        current_script.main()
+        del current_script
         screen.clear()
         updated = True
 

@@ -1,9 +1,20 @@
-from script import Script
 from pyb import wfi
+from micropython import opt_level
 
-class EmptyScript(Script):
-    def __init__(self, *args) -> None:
-        super().__init__(*args, name="Empty")
+opt_level(3)
+
+
+class EmptyScript:
+    screen_width = 160
+    screen_height = 128
+
+    name = "empty"
+
+    def __init__(self, screen, sensor, led1, led2) -> None:
+        self.screen = screen
+        self.sensor = sensor
+        self.led1 = led1
+        self.led2 = led2
 
     # main function
     def main(self):
@@ -13,4 +24,3 @@ class EmptyScript(Script):
             wfi()
             if self.sensor.btnValue("b"):
                 break
-

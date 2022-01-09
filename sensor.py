@@ -1,6 +1,8 @@
 import math
 from pyb import I2C, ADC, Pin, delay
-from micropython import const
+from micropython import const, opt_level
+
+opt_level(3)
 
 ACC_REST = const(400)
 ACC_SHAKE = const(1600)
@@ -130,36 +132,36 @@ class Sensor:
         else:
             return detGes
 
-    def debounce(self, pin):
-        for i in range(50):
+    def debounce(self, pin, time=50):
+        for i in range(time):
             if pin.value() != 0:
                 return False
             delay(1)
         return True
 
-    def btnValue(self, btn):
+    def btnValue(self, btn, time=50):
         btn = btn.lower()
         if btn == "a":
-            if self.debounce(self.btn_BTNA):
+            if self.debounce(self.btn_BTNA, time):
                 return True
             return False
         elif btn == "b":
-            if self.debounce(self.btn_BTNB):
+            if self.debounce(self.btn_BTNB, time):
                 return True
             return False
         elif btn == "left":
-            if self.debounce(self.btn_LEFT):
+            if self.debounce(self.btn_LEFT, time):
                 return True
             return False
         elif btn == "up":
-            if self.debounce(self.btn_UP):
+            if self.debounce(self.btn_UP, time):
                 return True
             return False
         elif btn == "right":
-            if self.debounce(self.btn_RIGHT):
+            if self.debounce(self.btn_RIGHT, time):
                 return True
             return False
         elif btn == "down":
-            if self.debounce(self.btn_DOWN):
+            if self.debounce(self.btn_DOWN, time):
                 return True
             return False

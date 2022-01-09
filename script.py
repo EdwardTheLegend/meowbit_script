@@ -1,3 +1,7 @@
+from micropython import opt_level
+
+opt_level(3)
+
 class Script:
     def __init__(self, screen, sensor, led1, led2, name: str = "Script") -> None:
         self.screen = screen

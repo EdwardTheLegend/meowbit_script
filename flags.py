@@ -1,9 +1,19 @@
-from script import Script
+from micropython import opt_level
+
+opt_level(3)
 
 
-class FlagsScript(Script):
-    def __init__(self, *args) -> None:
-        super().__init__(*args, name="Flags")
+class FlagsScript:
+    screen_width = 160
+    screen_height = 128
+
+    name = "flags"
+
+    def __init__(self, screen, sensor, led1, led2) -> None:
+        self.screen = screen
+        self.sensor = sensor
+        self.led1 = led1
+        self.led2 = led2
 
     def japan(self):
         self.screen.fill((255, 255, 255))
@@ -44,11 +54,9 @@ class FlagsScript(Script):
         self.flags_list[self.flag_index]()
         while True:
             if self.sensor.btnValue("right") == 1:
-                print("right")
                 self.flag_index = (self.flag_index + 1) % len(self.flags_list)
                 self.flags_list[self.flag_index]()
             elif self.sensor.btnValue("left") == 1:
-                print("left")
                 self.flag_index = (self.flag_index - 1) % len(self.flags_list)
                 self.flags_list[self.flag_index]()
             elif self.sensor.btnValue("b"):
