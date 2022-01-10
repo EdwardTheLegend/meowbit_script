@@ -1,10 +1,6 @@
 from framebuf import RGB565, FrameBuffer
 from pyb import LED, SCREEN, wfi
 
-from flags import FlagsScript
-from empty import EmptyScript
-from one_pixel import OnePixelScript
-
 from screen import Screen
 from sensor import Sensor
 from micropython import const, opt_level
@@ -23,10 +19,16 @@ led2 = LED(2)
 # clear the screen
 screen.clear()
 
+from flags import FlagsScript
+from empty import EmptyScript
+from one_pixel import OnePixelScript
+from brightness import BrightnessScript
+
 scripts = [
     FlagsScript,
     EmptyScript,
     OnePixelScript,
+    BrightnessScript,
 ]
 
 # menu system
