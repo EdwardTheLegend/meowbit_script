@@ -21,18 +21,12 @@ led2 = LED(2)
 # clear the screen
 screen.clear()
 
-from flags import FlagsScript
-from empty import EmptyScript
-from one_pixel import OnePixelScript
-from brightness import BrightnessScript
-from one_sprite import OneSpriteScript
-
 scripts = [
-    FlagsScript,
-    EmptyScript,
-    OnePixelScript,
-    BrightnessScript,
-    OneSpriteScript
+    ["flags", "FlagsScript"],
+    ["empty", "EmptyScript"],
+    ["one_pixel", "OnePixelScript"],
+    ["brightness", "BrightnessScript"],
+    ["one_sprite", "OneSpriteScript"],
 ]
 
 # menu system
@@ -48,9 +42,21 @@ while True:
         cursor_index = (cursor_index + 1) % len(scripts)
         updated = True
     elif sensor.btnValue("a"):
-        current_script = scripts[cursor_index](screen, sensor, led1, led2)
-        current_script.main()
-        del current_script
+        exec("from " + scripts[cursor_index][0] + " import " + scripts[cursor_index][1])
+        print("from " + scripts[cursor_index][0] + " import " + scripts[cursor_index][1])
+        exec("current_script = " + scripts[cursor_index][1] + "(screen, sensor, led1, led2)")
+        print(gc.mem_free())
+        print(gc.mem_alloc())
+        try:
+            current_script.main()
+        except Exception as e:
+            print(current_script.name, "crashed")
+            print(e)
+        finally:
+            del current_script
+            exec("del " + scripts[cursor_index][1])
+            gc.collect()
+            print(dir())
         screen.clear()
         updated = True
 
@@ -58,7 +64,7 @@ while True:
         for i in range(len(scripts)):
             if i == cursor_index:
                 screen.text(
-                    text="[_] " + scripts[i].name,
+                    text="[_] " + scripts[i][0],
                     x=0,
                     y=(i * menu_spacing),
                     update=False,
@@ -74,7 +80,7 @@ while True:
                     update=False,
                 )
                 screen.text(
-                    text="[ ] " + scripts[i].name, x=0, y=i * menu_spacing, update=False
+                    text="[ ] " + scripts[i][0], x=0, y=i * menu_spacing, update=False
                 )
 
         screen.refresh()
