@@ -4,8 +4,10 @@ from pyb import LED, SCREEN, wfi
 from screen import Screen
 from sensor import Sensor
 from micropython import const, opt_level
+import gc
 
 opt_level(3)
+gc.threshold(700)
 
 # initialize all the components
 screen = Screen(
@@ -23,12 +25,14 @@ from flags import FlagsScript
 from empty import EmptyScript
 from one_pixel import OnePixelScript
 from brightness import BrightnessScript
+from one_sprite import OneSpriteScript
 
 scripts = [
     FlagsScript,
     EmptyScript,
     OnePixelScript,
     BrightnessScript,
+    OneSpriteScript
 ]
 
 # menu system
