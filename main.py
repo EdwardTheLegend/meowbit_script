@@ -27,6 +27,7 @@ scripts = [
     ["one_pixel", "OnePixelScript"],
     ["brightness", "BrightnessScript"],
     ["one_sprite", "OneSpriteScript"],
+    ["example_bmp", "ExampleBMPScript"],
 ]
 
 # menu system
@@ -43,8 +44,10 @@ while True:
         updated = True
     elif sensor.btnValue("a"):
         exec("from " + scripts[cursor_index][0] + " import " + scripts[cursor_index][1])
-        print("from " + scripts[cursor_index][0] + " import " + scripts[cursor_index][1])
-        exec("current_script = " + scripts[cursor_index][1] + "(screen, sensor, led1, led2)")
+        print(
+            "from " + scripts[cursor_index][0] + " import " + scripts[cursor_index][1]
+        )
+        current_script = eval(scripts[cursor_index][1] + "(screen, sensor, led1, led2)")
         print(gc.mem_free())
         print(gc.mem_alloc())
         try:
@@ -56,7 +59,7 @@ while True:
             del current_script
             exec("del " + scripts[cursor_index][1])
             gc.collect()
-            print(dir())
+            # print(dir())
         screen.clear()
         updated = True
 

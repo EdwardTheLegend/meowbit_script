@@ -86,5 +86,8 @@ class Screen:
         self.refresh(update)
 
     def loadBmp(self, path, x=0, y=0, update=True):
+        # offset y by 1 because of real world observation
+        y -= 1
+
         self._fb.loadbmp(path, x, y)
         self.refresh(update)
