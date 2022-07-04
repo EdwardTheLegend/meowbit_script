@@ -1,1 +1,1 @@
-robocopy .. E:\ /XO
+robocopy .. D:\ /XO /s /xd copier .git .github .history
