@@ -28,6 +28,7 @@ scripts = [
     ["brightness", "BrightnessScript"],
     ["one_sprite", "OneSpriteScript"],
     ["example_bmp", "ExampleBMPScript"],
+    ["scrolling_background", "ScrollingBackgroundScript"],
 ]
 
 # menu system
