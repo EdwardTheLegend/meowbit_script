@@ -142,26 +142,14 @@ class Sensor:
     def btnValue(self, btn, time=50):
         btn = btn.lower()
         if btn == "a":
-            if self.debounce(self.btn_BTNA, time):
-                return True
-            return False
+            return self.debounce(self.btn_BTNA, time=time)
         elif btn == "b":
-            if self.debounce(self.btn_BTNB, time):
-                return True
-            return False
+            return self.debounce(self.btn_BTNB, time=time)
         elif btn == "left":
-            if self.debounce(self.btn_LEFT, time):
-                return True
-            return False
+            return self.debounce(self.btn_LEFT, time=time)
         elif btn == "up":
-            if self.debounce(self.btn_UP, time):
-                return True
-            return False
+            return self.debounce(self.btn_UP, time=time)
         elif btn == "right":
-            if self.debounce(self.btn_RIGHT, time):
-                return True
-            return False
+            return self.debounce(self.btn_RIGHT, time=time)
         elif btn == "down":
-            if self.debounce(self.btn_DOWN, time):
-                return True
-            return False
+            return self.debounce(self.btn_DOWN, time=time)
