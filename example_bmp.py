@@ -5,7 +5,7 @@ opt_level(3)
 
 
 class ExampleBMPScript:
-    name = "example_bmp"
+    name = "example bmp"
 
     def __init__(self, screen, sensor, led1, led2):
         self.screen = screen
@@ -14,7 +14,7 @@ class ExampleBMPScript:
         self.led2 = led2
 
     def main(self):
-        image_path = "images/example_bmp/sky_tree_ground.bmp"
+        image_path = "images/sky_tree_ground.bmp"
 
         # load the image
         self.screen.loadBmp(image_path)
