@@ -6,7 +6,7 @@ from screen import Screen
 opt_level(3)
 
 
-class ScrollingBackgroundScript:
+class ScrollingBmpScript:
     screen_width = const(160)
     screen_height = const(128)
     name = "scrolling background"
