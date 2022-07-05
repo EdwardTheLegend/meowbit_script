@@ -26,23 +26,28 @@ class OneSpriteScript:
         step_size = const(20)
         while True:
             wfi()
+
             if self.sensor.btnValue("right", time=pause_time) == 1:
                 self.x += step_size
                 if self.x >= self.screen_width:
                     self.x = self.screen_width - 1
-            elif self.sensor.btnValue("left", time=pause_time) == 1:
+
+            if self.sensor.btnValue("left", time=pause_time) == 1:
                 self.x -= step_size
                 if self.x < 0:
                     self.x = 0
-            elif self.sensor.btnValue("up", time=pause_time) == 1:
+
+            if self.sensor.btnValue("up", time=pause_time) == 1:
                 self.y -= step_size
                 if self.y < 0:
                     self.y = 0
-            elif self.sensor.btnValue("down", time=pause_time) == 1:
+
+            if self.sensor.btnValue("down", time=pause_time) == 1:
                 self.y += step_size
                 if self.y >= self.screen_height:
                     self.y = self.screen_height - 1
-            elif self.sensor.btnValue("b"):
+
+            if self.sensor.btnValue("b"):
                 break
 
             self.screen.clear(update=False)
