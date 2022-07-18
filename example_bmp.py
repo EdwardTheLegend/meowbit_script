@@ -1,3 +1,4 @@
+from framebuf import FrameBuffer, RGB565
 from pyb import wfi
 from micropython import opt_level
 
@@ -16,8 +17,13 @@ class ExampleBMPScript:
     def main(self):
         image_path = "images/sky_tree_ground.bmp"
 
-        # load the image
-        self.screen.loadBmp(image_path)
+        # # load the image
+        # self.screen.loadBmp(image_path)
+
+        self._fb = FrameBuffer(bytearray(160 * 128 * 2), 160, 128, RGB565)
+        self._fb.loadbmp(image_path, 0, 0)
+
+        self.screen._fb.blit(self._fb, 0, 0)
 
         # loop until b is pressed
         while True:

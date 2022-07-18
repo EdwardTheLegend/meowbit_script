@@ -25,7 +25,15 @@ class Screen:
                 color = (t << 16) + (t << 8) + (t)
         return color
 
-    def text(self, text, x: int, y: int, color=255, update=True):
+    def text(self, text, x, y, color=255, update=True):
+        # split text on newlines
+        lines = text.split("\n")
+
+        for line in lines:
+            self._line_text(line, x, y, color, update)
+            y += 8
+
+    def _line_text(self, text, x: int, y: int, color=255, update=True):
         color = self.getColHex(color)
         if type(text) != str:
             text = str(text)

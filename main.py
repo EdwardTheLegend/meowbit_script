@@ -8,6 +8,7 @@ import gc
 
 opt_level(3)
 gc.threshold(700)
+gc.enable()
 
 # initialize all the components
 screen = Screen(
@@ -29,6 +30,8 @@ scripts = [
     ["one_sprite", "OneSpriteScript"],
     ["example_bmp", "ExampleBMPScript"],
     ["scrolling_bmp", "ScrollingBmpScript"],
+    ["walk", "WalkScript"],
+    ["acc_readout", "AccReadoutScript"],
 ]
 
 # menu system
@@ -48,17 +51,17 @@ while True:
         print(
             "from " + scripts[cursor_index][0] + " import " + scripts[cursor_index][1]
         )
+        print(gc.mem_free(), gc.mem_alloc())
         current_script = eval(scripts[cursor_index][1] + "(screen, sensor, led1, led2)")
-        print(gc.mem_free())
-        print(gc.mem_alloc())
+        print(gc.mem_free(), gc.mem_alloc())
         try:
             current_script.main()
         except Exception as e:
             print(current_script.name, "crashed")
             print(e)
         finally:
-            del current_script
-            exec("del " + scripts[cursor_index][1])
+            # del current_script
+            # exec("del " + scripts[cursor_index][1])
             gc.collect()
             # print(dir())
         screen.clear()

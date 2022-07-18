@@ -75,7 +75,7 @@ class Sensor:
     def _updatePR(self):
         self.roll = math.atan2(self.x, -self.z)
         self.pitch = math.atan2(
-            self.y, (self.x * math.sin(roll) - self.z * math.cos(roll))
+            self.y, (self.x * math.sin(self.roll) - self.z * math.cos(self.roll))
         )
 
     def gyro_x(self):
@@ -90,12 +90,12 @@ class Sensor:
         self._accUpdate()
         return self.gz
 
-    def pitch(self):
+    def get_pitch(self):
         self._accUpdate()
         self._updatePR()
         return 360 * self.pitch / 2 / math.pi
 
-    def roll(self):
+    def get_roll(self):
         self._accUpdate()
         self._updatePR()
         return 360 * self.roll / 2 / math.pi
